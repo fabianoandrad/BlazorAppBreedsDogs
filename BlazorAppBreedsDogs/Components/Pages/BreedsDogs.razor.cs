@@ -14,10 +14,7 @@ namespace BlazorAppBreedsDogs.Components.Pages
     {
         [Inject]
         IBreedsDogsService BreedsDogsService { get; set; }
-        public BreedsDogs()
-        {
-
-        }
+        public string teste { get; set; } = "Brasil";
 
         List<DogBreed> breedsDogs = new List<DogBreed>();
         protected override async Task OnInitializedAsync()
