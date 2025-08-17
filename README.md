@@ -1,4 +1,4 @@
-# 🐶 Raças de cachorros
+# 🐶 Raças de cães
 
 Aplicativo híbrido desenvolvido com **.NET MAUI Blazor Hybrid**, com o objetivo de apresentar diversas raças de cães e suas respectivas descrições. A interface é intuitiva e responsiva, permitindo a visualização de informações detalhadas como:
 
@@ -14,7 +14,7 @@ Aplicativo híbrido desenvolvido com **.NET MAUI Blazor Hybrid**, com o objetivo
 - [.NET MAUI](https://learn.microsoft.com/dotnet/maui/)  
 - [Blazor Hybrid](https://learn.microsoft.com/aspnet/core/blazor/hybrid/)  
 - C#  
-- API REST para dados das raças de cães  
+- API REST para dados das raças de cães [The dog Api](https://docs.thedogapi.com/)
 
 ## 📦 Instalação
 
