@@ -1,4 +1,4 @@
-# 🐶 Dog Breeds Explorer
+# 🐶 Raças de cachorros
 
 Aplicativo híbrido desenvolvido com **.NET MAUI Blazor Hybrid**, com o objetivo de apresentar diversas raças de cães e suas respectivas descrições. A interface é intuitiva e responsiva, permitindo a visualização de informações detalhadas como:
 
