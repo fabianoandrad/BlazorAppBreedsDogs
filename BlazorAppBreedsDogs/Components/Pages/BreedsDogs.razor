@@ -4,101 +4,26 @@
 
 @if (breedsDogs.Count == 0)
 {
-    <p><em>Carregando...</em></p>
+    <div style="height: 80vh; display: flex; justify-content: center; align-items: center;">
+        <span class="loader"></span>
+    </div>
 }
 else
 {
     <div class="cards">
-        <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
-               <article class="card-article">
-            <img src="Seiya.png" alt="Descrição da imagem">
-            <div class="card-content">
-                <h2>Raça do cão</h2>
-                <p>Origen: @teste</p>
-                <p>Criado para:</p>
-                <p>Temperamento:</p>
-                <p>Estimativa de vida:</p>
-            </div>
-        </article
+        @foreach (var breedsDog in breedsDogs)
+        {
+            <article class="card-article">
+                <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
+                <div class="card-content">
+                    <h4>@breedsDog.BreedName</h4>
+                    <p><span>Origen:</span> @breedsDog.Origin</p>
+                    <p><span>Criado para:</span> @breedsDog.BredFor</p>
+                    <p><span>Temperamento:</span> @breedsDog.Temperament</p>
+                    <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
+                </div>
+            </article>
+        }
     </div>
 
 

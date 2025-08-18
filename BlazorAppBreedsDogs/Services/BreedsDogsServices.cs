@@ -33,7 +33,7 @@ namespace BlazorAppBreedsDogs.Services
                 Console.WriteLine(await response.Content.ReadAsStringAsync());
 
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var breedsDogs = JsonConvert.DeserializeObject<List<DogBreed>>(jsonString);
+                List<DogBreed>? breedsDogs = JsonConvert.DeserializeObject<List<DogBreed>>(jsonString);
 
                 return breedsDogs;
             }
