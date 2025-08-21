@@ -21,4 +21,4 @@ Aplicativo híbrido desenvolvido com **.NET MAUI Blazor Hybrid**, com o objetivo
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/dog-breeds-explorer.git
+   https://github.com/fabianoandrad/BlazorAppBreedsDogs.git
