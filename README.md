@@ -14,7 +14,7 @@ Aplicativo híbrido desenvolvido com **.NET MAUI Blazor Hybrid**, com o objetivo
 - [.NET MAUI](https://learn.microsoft.com/dotnet/maui/)  
 - [Blazor Hybrid](https://learn.microsoft.com/aspnet/core/blazor/hybrid/)  
 - C#  
-- API REST para dados das raças de cães [Api](https://breeds-dogs-api-node.onrender.com)
+- [API](https://breeds-dogs-api-node.onrender.com/api/breeds-dogs) para dados das raças de cães.
 - Autenticação necessária para consultar api.
 
 ## 📦 Instalação
