@@ -12,20 +12,27 @@ else
 {
     @if (isVisible)
     {
-        <div class="cards">
-            @foreach (var breedsDog in breedsDogs)
-            {
-                <article class="card-article">
-                    <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
-                    <div class="card-content">
-                        <h4>@breedsDog.BreedName</h4>
-                        <p><span>Origen:</span> @breedsDog.Origin</p>
-                        <p><span>Criado para:</span> @breedsDog.BredFor</p>
-                        <p><span>Temperamento:</span> @breedsDog.Temperament</p>
-                        <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
-                    </div>
-                </article>
-            }
+
+        <div class="header">
+
+        </div>
+
+        <div class="container">
+            <div class="cards">
+                @foreach (var breedsDog in breedsDogs)
+                {
+                    <article class="card-article">
+                        <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
+                        <div class="card-content">
+                            <h4>@breedsDog.BreedName</h4>
+                            <p><span>Origen:</span> @breedsDog.Origin</p>
+                            <p><span>Criado para:</span> @breedsDog.BredFor</p>
+                            <p><span>Temperamento:</span> @breedsDog.Temperament</p>
+                            <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
+                        </div>
+                    </article>
+                }
+            </div>
         </div>
 
     }

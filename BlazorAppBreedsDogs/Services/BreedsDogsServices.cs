@@ -40,12 +40,20 @@ namespace BlazorAppBreedsDogs.Services
           
         }
 
-        //public async Task<BreedDog> GetFillterBreedDog()
-        //{
-        //    using (var )
-        //    {
+        public async Task<BreedDog> GetFillterBreedDog(int id)
+        {
+            var response = await _httpClient.GetAsync($"api/breed/{id}");
 
-        //    }
-        //}
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                BreedDog breedDog = JsonConvert.DeserializeObject<BreedDog>(jsonString);
+                return breedDog;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

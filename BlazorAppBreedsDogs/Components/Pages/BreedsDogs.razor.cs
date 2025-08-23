@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace BlazorAppBreedsDogs.Components.Pages
 {
-    public partial class BreedsDogs
+    public partial class BreedsDogs : ComponentBase
     {
         [Inject]
-        public BreedsDogsServices BreedsDogsService { get; set; }
+        public BreedsDogsServices BreedsDogsServices { get; set; }
         public bool isVisible { get; set; }
         public bool loading { get; set; }
 
@@ -22,7 +22,7 @@ namespace BlazorAppBreedsDogs.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             loading = true;
-            breedsDogs = await BreedsDogsService.GetAllBreeedsDogs();
+            breedsDogs = await BreedsDogsServices.GetAllBreeedsDogs();
             if (breedsDogs != null && breedsDogs.Count() != 0)
             {
                 isVisible = true;
@@ -33,6 +33,27 @@ namespace BlazorAppBreedsDogs.Components.Pages
             }
 
             loading = false;
+        }
+
+        public async void GetBreedDog()
+        {
+            breedsDogs.Clear();
+            loading = true;
+            BreedDog breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(6);
+
+            breedsDogs.Add(breedDogFiltered);
+
+            if (breedDogFiltered != null)
+            {
+                isVisible = true;
+            }
+            else
+            {
+                isVisible = false;
+            }
+
+            loading = false;
+            StateHasChanged();
         }
     }
 }
