@@ -1,5 +1,6 @@
 ﻿@page "/breedsDogs"
 
+
 <h1>Raças de cães</h1>
 
 @if (loading)
@@ -14,7 +15,19 @@ else
     {
 
         <div class="header">
+            @* <input type="text" @bind="breedName" /> *@
+            <select @bind="selectedBreedId" class="form-select">
+                <option value="0">Todas as raças</option>
+                @if (breedsDogs != null)
+                {
+                    @foreach(var breeds in breedsDogs)
+                    {
+                        <option value="@breeds.Id">@breeds.BreedName</option>
+                    }
+                }
 
+            </select>
+            <button @onclick="GetBreedDog">Pesquisar</button>
         </div>
 
         <div class="container">

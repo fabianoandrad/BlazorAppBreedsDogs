@@ -17,9 +17,21 @@ namespace BlazorAppBreedsDogs.Components.Pages
         public BreedsDogsServices BreedsDogsServices { get; set; }
         public bool isVisible { get; set; }
         public bool loading { get; set; }
+        public string breedName { get; set; }
+        public string selectedBreedId { get; set; }
 
         List<BreedDog> breedsDogs = new List<BreedDog>();
+
+        /*
+         * TODO
+         * criar uma classe com nome e id pra usar no campo de pesquisa
+         */
         protected override async Task OnInitializedAsync()
+        {
+            GetAllBreeds();
+        }
+
+        public async void GetAllBreeds()
         {
             loading = true;
             breedsDogs = await BreedsDogsServices.GetAllBreeedsDogs();
@@ -33,13 +45,22 @@ namespace BlazorAppBreedsDogs.Components.Pages
             }
 
             loading = false;
+            StateHasChanged();
         }
 
         public async void GetBreedDog()
         {
-            breedsDogs.Clear();
+            if (selectedBreedId == null) return;
+
+            if (int.Parse(selectedBreedId) == 0)
+            {
+                GetAllBreeds();
+                return;
+            }
+
             loading = true;
-            BreedDog breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(6);
+            breedsDogs.Clear();
+            BreedDog breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(int.Parse(selectedBreedId));
 
             breedsDogs.Add(breedDogFiltered);
 
