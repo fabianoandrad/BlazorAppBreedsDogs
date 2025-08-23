@@ -14,10 +14,10 @@ Aplicativo híbrido desenvolvido com **.NET MAUI Blazor Hybrid**, com o objetivo
 - [.NET MAUI](https://learn.microsoft.com/dotnet/maui/)  
 - [Blazor Hybrid](https://learn.microsoft.com/aspnet/core/blazor/hybrid/)  
 - C#  
-- API REST para dados das raças de cães [The dog Api](https://docs.thedogapi.com/)
+- [API](https://breeds-dogs-api-node.onrender.com/api/breeds-dogs) para consultar as informações das raças de cães (A autenticação é necessária para consultar API).
 
 ## 📦 Instalação
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/dog-breeds-explorer.git
+   https://github.com/fabianoandrad/BlazorAppBreedsDogs.git
