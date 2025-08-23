@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlazorAppBreedsDogs.Models
 {
-    public class DogBreed
+    public class BreedDog
     {
         public int Id { get; set; }
         [JsonProperty("name")]

@@ -2,7 +2,7 @@
 
 <h1>Raças de cães</h1>
 
-@if (breedsDogs.Count == 0)
+@if (loading)
 {
     <div style="height: 80vh; display: flex; justify-content: center; align-items: center;">
         <span class="loader"></span>
@@ -10,21 +10,31 @@
 }
 else
 {
-    <div class="cards">
-        @foreach (var breedsDog in breedsDogs)
-        {
-            <article class="card-article">
-                <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
-                <div class="card-content">
-                    <h4>@breedsDog.BreedName</h4>
-                    <p><span>Origen:</span> @breedsDog.Origin</p>
-                    <p><span>Criado para:</span> @breedsDog.BredFor</p>
-                    <p><span>Temperamento:</span> @breedsDog.Temperament</p>
-                    <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
-                </div>
-            </article>
-        }
-    </div>
+    @if (isVisible)
+    {
+        <div class="cards">
+            @foreach (var breedsDog in breedsDogs)
+            {
+                <article class="card-article">
+                    <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
+                    <div class="card-content">
+                        <h4>@breedsDog.BreedName</h4>
+                        <p><span>Origen:</span> @breedsDog.Origin</p>
+                        <p><span>Criado para:</span> @breedsDog.BredFor</p>
+                        <p><span>Temperamento:</span> @breedsDog.Temperament</p>
+                        <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
+                    </div>
+                </article>
+            }
+        </div>
+
+    }
+    else
+    {
+        <div>
+            <p>Nenhum dado foi encontrado!</p>
+        </div>
+    }
 
 
 }

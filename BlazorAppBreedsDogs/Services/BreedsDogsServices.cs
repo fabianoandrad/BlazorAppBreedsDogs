@@ -10,33 +10,42 @@ using System.Threading.Tasks;
 
 namespace BlazorAppBreedsDogs.Services
 {
-    public class BreedsDogsServices : IBreedsDogsService
+    public class BreedsDogsServices
     {
-        private readonly IHttpClientFactory httpClientFactory;
-        private string apiKey = "live_cL4FA4wSlsY8T6N79RJeu4c1jZyIzTo45HSaCKQpUalenl34Bk0t4D25G9wb3ZAH";
+        private readonly HttpClient _httpClient;
 
-        public BreedsDogsServices(IHttpClientFactory httpClientFactory)
+        public BreedsDogsServices(HttpClient httpClient)
         {
-            this.httpClientFactory = httpClientFactory;
+            _httpClient = httpClient;
         }
 
-        public async Task<List<DogBreed>> GetBreeedsDogs()
+        public async Task<List<BreedDog>> GetAllBreeedsDogs()
         {
-            using (var httpClient = httpClientFactory.CreateClient())
-            {  
-                var request = new HttpRequestMessage(HttpMethod.Get, "https://api.thedogapi.com/v1/breeds");
-                request.Headers.Add("x-api-key", apiKey);
-                var content = new StringContent("", null, "text/plain");
-                request.Content = content;
-                var response = await httpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
 
+            var response = await _httpClient.GetAsync("api/breeds-dogs");
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                List<DogBreed>? breedsDogs = JsonConvert.DeserializeObject<List<DogBreed>>(jsonString);
+                List<BreedDog>? breedsDogs = JsonConvert.DeserializeObject<List<BreedDog>>(jsonString);
 
                 return breedsDogs;
+
             }
+            else
+            {
+                return null;
+            }
+          
         }
+
+        //public async Task<BreedDog> GetFillterBreedDog()
+        //{
+        //    using (var )
+        //    {
+
+        //    }
+        //}
     }
 }

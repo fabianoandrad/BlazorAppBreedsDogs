@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 
@@ -13,13 +14,26 @@ namespace BlazorAppBreedsDogs.Components.Pages
     public partial class BreedsDogs
     {
         [Inject]
-        IBreedsDogsService BreedsDogsService { get; set; }
-        public string teste { get; set; } = "Brasil";
+        public BreedsDogsServices BreedsDogsService { get; set; }
+        public bool isVisible { get; set; }
+        public bool loading { get; set; }
 
-        List<DogBreed> breedsDogs = new List<DogBreed>();
+        List<BreedDog> breedsDogs = new List<BreedDog>();
         protected override async Task OnInitializedAsync()
         {
-           breedsDogs = await BreedsDogsService.GetBreeedsDogs();
+            loading = true;
+            breedsDogs = await BreedsDogsService.GetAllBreeedsDogs();
+            if (breedsDogs != null && breedsDogs.Count() != 0)
+            {
+                isVisible = true;
+            }
+            else
+            {
+                isVisible = false;
+            }
+
+            loading = false;
         }
     }
 }
+ 
