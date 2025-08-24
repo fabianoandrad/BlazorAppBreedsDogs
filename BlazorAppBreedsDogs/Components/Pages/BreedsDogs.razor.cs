@@ -18,9 +18,21 @@ namespace BlazorAppBreedsDogs.Components.Pages
         public bool isVisible { get; set; }
         public bool loading { get; set; }
         public string breedName { get; set; }
-        public string selectedBreedId { get; set; }
+        private int selectedBreedId { get; set; }
+        public int SelectedBreedId
+        {
+            get => selectedBreedId;
+            set
+            {
+                selectedBreedId = value;
+                _ = GetBreedFiltered(selectedBreedId); // Chama o método ao alterar
+            }
+        }
 
-        List<BreedDog> breedsDogs = new List<BreedDog>();
+
+        List<BreedDog> allBreedsDogs { get; set; } = new List<BreedDog>();
+        List<BreedDog> displayedBreedsDogs { get; set; } = new List<BreedDog>();
+        List<BreedsNames> breedsNames { get; set; } = new List<BreedsNames>();
 
         /*
          * TODO
@@ -28,15 +40,13 @@ namespace BlazorAppBreedsDogs.Components.Pages
          */
         protected override async Task OnInitializedAsync()
         {
-            GetAllBreeds();
-        }
-
-        public async void GetAllBreeds()
-        {
             loading = true;
-            breedsDogs = await BreedsDogsServices.GetAllBreeedsDogs();
-            if (breedsDogs != null && breedsDogs.Count() != 0)
+            allBreedsDogs = await BreedsDogsServices.GetAllBreeedsDogs();
+            if (allBreedsDogs != null && allBreedsDogs.Count() != 0)
             {
+                breedsNames = allBreedsDogs.Select(b => new BreedsNames { Id = b.Id, BreedName = b.BreedName }).ToList();
+
+                displayedBreedsDogs = new List<BreedDog>(allBreedsDogs);
                 isVisible = true;
             }
             else
@@ -45,24 +55,30 @@ namespace BlazorAppBreedsDogs.Components.Pages
             }
 
             loading = false;
+        }
+
+        public async Task GetAllBreeds()
+        {
+            displayedBreedsDogs.Clear();
+            displayedBreedsDogs = new List<BreedDog>(allBreedsDogs);
             StateHasChanged();
         }
 
-        public async void GetBreedDog()
+        public async Task GetBreedFiltered(int value)
         {
-            if (selectedBreedId == null) return;
+            if (value == null) return;
 
-            if (int.Parse(selectedBreedId) == 0)
+            if (value == 0)
             {
                 GetAllBreeds();
                 return;
             }
 
             loading = true;
-            breedsDogs.Clear();
-            BreedDog breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(int.Parse(selectedBreedId));
+            displayedBreedsDogs.Clear();
+            BreedDog breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(value);
 
-            breedsDogs.Add(breedDogFiltered);
+            displayedBreedsDogs.Add(breedDogFiltered);
 
             if (breedDogFiltered != null)
             {

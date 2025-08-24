@@ -16,23 +16,23 @@ else
 
         <div class="header">
             @* <input type="text" @bind="breedName" /> *@
-            <select @bind="selectedBreedId" class="form-select">
+            <select @bind="SelectedBreedId" class="form-select">
                 <option value="0">Todas as raças</option>
-                @if (breedsDogs != null)
+                @if (breedsNames != null)
                 {
-                    @foreach(var breeds in breedsDogs)
+                    @foreach (var breeds in breedsNames)
                     {
                         <option value="@breeds.Id">@breeds.BreedName</option>
                     }
                 }
 
             </select>
-            <button @onclick="GetBreedDog">Pesquisar</button>
+           @*  <button @onclick="() => GetBreedFiltered(0)">Limpar filtro</button> *@
         </div>
 
         <div class="container">
             <div class="cards">
-                @foreach (var breedsDog in breedsDogs)
+                @foreach (var breedsDog in displayedBreedsDogs)
                 {
                     <article class="card-article">
                         <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
