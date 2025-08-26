@@ -17,7 +17,7 @@ namespace BlazorAppBreedsDogs.Components.Pages
         public BreedsDogsServices BreedsDogsServices { get; set; }
         public bool isVisible { get; set; }
         public bool loading { get; set; }
-        public string breedName { get; set; }
+        public string selectedBreedName { get; set; }
         private int selectedBreedId { get; set; }
         public int SelectedBreedId
         {
@@ -28,7 +28,6 @@ namespace BlazorAppBreedsDogs.Components.Pages
                 _ = GetBreedFiltered(selectedBreedId); // Chama o método ao alterar
             }
         }
-
 
         List<BreedDog> allBreedsDogs { get; set; } = new List<BreedDog>();
         List<BreedDog> displayedBreedsDogs { get; set; } = new List<BreedDog>();
@@ -66,14 +65,6 @@ namespace BlazorAppBreedsDogs.Components.Pages
 
         public async Task GetBreedFiltered(int value)
         {
-            if (value == null) return;
-
-            if (value == 0)
-            {
-                GetAllBreeds();
-                return;
-            }
-
             loading = true;
             displayedBreedsDogs.Clear();
             BreedDog breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(value);
@@ -91,6 +82,30 @@ namespace BlazorAppBreedsDogs.Components.Pages
 
             loading = false;
             StateHasChanged();
+        }
+
+        public async Task onChangeBreedName(string breedName)
+        {
+            if (breedName == null)
+            {
+                selectedBreedId = 0;
+                selectedBreedName = "";
+                GetAllBreeds();
+                return;
+            }
+
+            BreedsNames selectedBreed = breedsNames.Where(n => n.BreedName == breedName).FirstOrDefault();
+
+            selectedBreedId = selectedBreed.Id;
+            selectedBreedName = selectedBreed.BreedName;
+            GetBreedFiltered(selectedBreedId);
+        }
+
+        private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
+        {
+            if (string.IsNullOrEmpty(value)) return breedsNames.Select(v => v.BreedName);
+            var selectedBreed = breedsNames.Where(v => v.BreedName.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+            return selectedBreed.Select(v => v.BreedName);
         }
     }
 }

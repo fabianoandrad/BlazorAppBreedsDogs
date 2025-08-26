@@ -1,7 +1,7 @@
 ﻿@page "/"
 
 
-<h1>Raças de cães</h1>
+<MudText Typo="Typo.h4">Raças de cães</MudText>
 
 @if (loading)
 {
@@ -13,39 +13,39 @@ else
 {
     @if (isVisible)
     {
+        <MudContainer MaxWidth="MaxWidth.Large">
+            <MudItem>
 
-        <div class="header">
-            @* <input type="text" @bind="breedName" /> *@
-            <select @bind="SelectedBreedId" class="form-select">
-                <option value="0">Todas as raças</option>
-                @if (breedsNames != null)
-                {
-                    @foreach (var breeds in breedsNames)
+                <MudAutocomplete 
+                    T="string"
+                    SearchFunc="@Search"
+                    Value="@selectedBreedName"
+                    ValueChanged="(string n) => onChangeBreedName(n)"
+                    Variant="Variant.Outlined"
+                    Margin="Margin.Dense"
+                    MaxItems="null"
+                    Placeholder="Selecione uma raça"
+                    Clearable />
+            </MudItem>
+
+            <MudItem>
+                <div class="cards">
+                    @foreach (var breedsDog in displayedBreedsDogs)
                     {
-                        <option value="@breeds.Id">@breeds.BreedName</option>
+                        <article class="card-article">
+                            <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
+                            <div class="card-content">
+                                <h4>@breedsDog.BreedName</h4>
+                                <p><span>Origen:</span> @breedsDog.Origin</p>
+                                <p><span>Criado para:</span> @breedsDog.BredFor</p>
+                                <p><span>Temperamento:</span> @breedsDog.Temperament</p>
+                                <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
+                            </div>
+                        </article>
                     }
-                }
-
-            </select>
-        </div>
-
-        <div class="container">
-            <div class="cards">
-                @foreach (var breedsDog in displayedBreedsDogs)
-                {
-                    <article class="card-article">
-                        <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
-                        <div class="card-content">
-                            <h4>@breedsDog.BreedName</h4>
-                            <p><span>Origen:</span> @breedsDog.Origin</p>
-                            <p><span>Criado para:</span> @breedsDog.BredFor</p>
-                            <p><span>Temperamento:</span> @breedsDog.Temperament</p>
-                            <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
-                        </div>
-                    </article>
-                }
-            </div>
-        </div>
+                </div>
+            </MudItem>
+        </MudContainer>
 
     }
     else
