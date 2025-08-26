@@ -1,21 +1,21 @@
 ﻿@page "/"
 
-
-<MudText Typo="Typo.h4">Raças de cães</MudText>
+<MudItem Class="mb-4 mt-2">
+    <MudText Typo="Typo.h4">Raças de cães</MudText>
+</MudItem>
 
 @if (loading)
 {
-    <div style="height: 80vh; display: flex; justify-content: center; align-items: center;">
-        <span class="loader"></span>
-    </div>
+    <MudItem>
+        <MudProgressLinear Color="Color.Info" Indeterminate="true" Class="my-7" />
+    </MudItem>
 }
 else
 {
     @if (isVisible)
     {
         <MudContainer MaxWidth="MaxWidth.Large">
-            <MudItem>
-
+            <MudItem Class="mb-4">
                 <MudAutocomplete 
                     T="string"
                     SearchFunc="@Search"
@@ -28,31 +28,35 @@ else
                     Clearable />
             </MudItem>
 
-            <MudItem>
-                <div class="cards">
-                    @foreach (var breedsDog in displayedBreedsDogs)
-                    {
-                        <article class="card-article">
-                            <img src="@breedsDog.Image.Url" alt="Descrição da imagem">
-                            <div class="card-content">
-                                <h4>@breedsDog.BreedName</h4>
-                                <p><span>Origen:</span> @breedsDog.Origin</p>
-                                <p><span>Criado para:</span> @breedsDog.BredFor</p>
-                                <p><span>Temperamento:</span> @breedsDog.Temperament</p>
-                                <p><span>Estimativa de vida:</span> @breedsDog.LifeSpan</p>
-                            </div>
-                        </article>
-                    }
-                </div>
-            </MudItem>
+            <MudGrid Spacing="6" Justify="Justify.Center">
+                @foreach (var breedsDog in displayedBreedsDogs)
+                {
+                    <MudItem xs="12" sm="6" md="4" lg="3">
+                        <MudCard Style="width: auto">
+                            <MudCardMedia Image="@breedsDog.Image.Url" Height="200" />
+                            <MudCardContent>
+                                <MudText Typo="Typo.h5">@breedsDog.BreedName</MudText>
+                                <MudText Typo="Typo.body2"><span>Origen:</span> @breedsDog.Origin</MudText>
+                                <MudText Typo="Typo.body2"><span>Criado para:</span> @breedsDog.BredFor</MudText>
+                                <MudText Typo="Typo.body2"><span>Temperamento:</span> @breedsDog.Temperament</MudText>
+                                <MudText Typo="Typo.body2"><span>Estimativa de vida:</span> @breedsDog.LifeSpan</MudText>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+                                <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem> 
+                }
+            </MudGrid>
         </MudContainer>
 
     }
     else
     {
-        <div>
-            <p>Nenhum dado foi encontrado!</p>
-        </div>
+        <MudItem>
+            <MudText Typo="Typo.h4">Nenhum dado foi encontrado!</MudText>
+        </MudItem>
     }
 
 
