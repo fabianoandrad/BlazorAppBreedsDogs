@@ -1,22 +1,10 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BlazorAppBreedsDogs</a>
-    </div>
-</div>
+﻿
+<MudNavMenu Color="Color.Primary" Bordered="true" Margin="Margin.Dense">
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+    <MudNavLink Match="NavLinkMatch.All" IconColor="Color.Inherit" Href="/"
+                Icon="@Icons.Material.Outlined.Add">Raças de cães</MudNavLink>
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Raças de cães
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="favorites">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Favoritos
-            </NavLink>
-        </div>
-    </nav>
-</div>
+    <MudNavLink Match="NavLinkMatch.All" IconColor="Color.Inherit" Href="favorites"
+                Icon="@Icons.Material.Outlined.Category">Favoritos</MudNavLink>
+
+</MudNavMenu>

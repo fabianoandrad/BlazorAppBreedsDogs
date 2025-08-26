@@ -1,5 +1,6 @@
 ﻿using BlazorAppBreedsDogs.Services;
 using Microsoft.Extensions.Logging;
+using MudBlazor.Services;
 
 namespace BlazorAppBreedsDogs
 {
@@ -24,9 +25,10 @@ namespace BlazorAppBreedsDogs
               });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddMudServices();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
 
