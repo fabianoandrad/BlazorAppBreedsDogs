@@ -42,7 +42,15 @@ else
                                 <MudText Typo="Typo.body2"><span>Estimativa de vida:</span> @breedsDog.LifeSpan</MudText>
                             </MudCardContent>
                             <MudCardActions>
-                                <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+                                @if (favoritesIds.Contains(breedsDog.Id))
+                                {
+                                    <MudIconButton OnClick="() => onSaveFavorites(breedsDog.Id)" Icon="@Icons.Material.Filled.Favorite" Color="Color.Error" />
+
+                                }
+                                else
+                                {
+                                    <MudIconButton OnClick="() => onSaveFavorites(breedsDog.Id)" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+                                }
                                 <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
                             </MudCardActions>
                         </MudCard>
@@ -58,6 +66,4 @@ else
             <MudText Typo="Typo.h4">Nenhum dado foi encontrado!</MudText>
         </MudItem>
     }
-
-
 }

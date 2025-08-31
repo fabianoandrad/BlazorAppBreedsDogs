@@ -1,12 +1,9 @@
 ﻿using BlazorAppBreedsDogs.Models;
 using BlazorAppBreedsDogs.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using Microsoft.JSInterop;
+using Color = MudBlazor.Color;
+
 
 
 namespace BlazorAppBreedsDogs.Components.Pages
@@ -15,10 +12,20 @@ namespace BlazorAppBreedsDogs.Components.Pages
     {
         [Inject]
         public BreedsDogsServices BreedsDogsServices { get; set; }
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
+
+        private int selectedBreedId { get; set; }
+        private FavoriteBreedsService favoriteBreedsService = new FavoriteBreedsService();
+
         public bool isVisible { get; set; }
         public bool loading { get; set; }
         public string selectedBreedName { get; set; }
-        private int selectedBreedId { get; set; }
+        public Color favoriteColor { get; set; } = Color.Default;
+        public List<int> favoritesIds { get; set; } = new List<int>();
+        public int filterId { get; set; }
+        public BreedDog? breedDogFiltered { get; set; } = null;
+
         public int SelectedBreedId
         {
             get => selectedBreedId;
@@ -33,13 +40,11 @@ namespace BlazorAppBreedsDogs.Components.Pages
         List<BreedDog> displayedBreedsDogs { get; set; } = new List<BreedDog>();
         List<BreedsNames> breedsNames { get; set; } = new List<BreedsNames>();
 
-        /*
-         * TODO
-         * criar uma classe com nome e id pra usar no campo de pesquisa
-         */
+      
         protected override async Task OnInitializedAsync()
         {
             loading = true;
+            favoritesIds = favoriteBreedsService.GetFavorites();
             allBreedsDogs = await BreedsDogsServices.GetAllBreeedsDogs();
             if (allBreedsDogs != null && allBreedsDogs.Count() != 0)
             {
@@ -58,6 +63,7 @@ namespace BlazorAppBreedsDogs.Components.Pages
 
         public async Task GetAllBreeds()
         {
+            favoritesIds = favoriteBreedsService.GetFavorites();
             displayedBreedsDogs.Clear();
             displayedBreedsDogs = new List<BreedDog>(allBreedsDogs);
             StateHasChanged();
@@ -66,13 +72,14 @@ namespace BlazorAppBreedsDogs.Components.Pages
         public async Task GetBreedFiltered(int value)
         {
             loading = true;
+            filterId = value;
             displayedBreedsDogs.Clear();
-            BreedDog breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(value);
-
-            displayedBreedsDogs.Add(breedDogFiltered);
+            favoritesIds = favoriteBreedsService.GetFavorites();
+            if (breedDogFiltered == null) breedDogFiltered = await BreedsDogsServices.GetFillterBreedDog(filterId);
 
             if (breedDogFiltered != null)
             {
+                displayedBreedsDogs.Add(breedDogFiltered);
                 isVisible = true;
             }
             else
@@ -88,9 +95,11 @@ namespace BlazorAppBreedsDogs.Components.Pages
         {
             if (breedName == null)
             {
+                breedDogFiltered = null;
                 selectedBreedId = 0;
                 selectedBreedName = "";
-                GetAllBreeds();
+                filterId = 0;
+                await GetAllBreeds();
                 return;
             }
 
@@ -98,7 +107,30 @@ namespace BlazorAppBreedsDogs.Components.Pages
 
             selectedBreedId = selectedBreed.Id;
             selectedBreedName = selectedBreed.BreedName;
-            GetBreedFiltered(selectedBreedId);
+            await GetBreedFiltered(selectedBreedId);
+        }
+
+        public async Task onSaveFavorites(int breedsId)
+        {
+            if (favoriteBreedsService.IsFavorite(breedsId))
+            {
+                favoriteBreedsService.RemoveFavorite(breedsId);
+                favoriteColor = Color.Default;
+            }
+            else
+            {
+                favoriteBreedsService.AddFavorite(breedsId);
+                favoriteColor = Color.Error;
+            }
+
+            if (filterId != 0)
+            {
+                await GetBreedFiltered(filterId);
+                return;
+            }
+            
+            await GetAllBreeds();
+
         }
 
         private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
