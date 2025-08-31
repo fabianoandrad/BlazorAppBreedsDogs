@@ -1,0 +1,28 @@
+﻿
+@foreach (var breedsDog in displayedBreedsDogs)
+{
+    <MudItem xs="12" sm="6" md="4" lg="3">
+        <MudCard Style="width: auto">
+            <MudCardMedia Image="@breedsDog.Image.Url" Height="200" />
+            <MudCardContent>
+                <MudText Typo="Typo.h5">@breedsDog.BreedName</MudText>
+                <MudText Typo="Typo.body2"><span>Origen:</span> @breedsDog.Origin</MudText>
+                <MudText Typo="Typo.body2"><span>Criado para:</span> @breedsDog.BredFor</MudText>
+                <MudText Typo="Typo.body2"><span>Temperamento:</span> @breedsDog.Temperament</MudText>
+                <MudText Typo="Typo.body2"><span>Estimativa de vida:</span> @breedsDog.LifeSpan</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                @if (favoritesIds.Contains(breedsDog.Id))
+                {
+                    <MudIconButton OnClick="() => onSaveFavorites(breedsDog.Id)" Icon="@Icons.Material.Filled.Favorite" Color="Color.Error" />
+
+                }
+                else
+                {
+                    <MudIconButton OnClick="() => onSaveFavorites(breedsDog.Id)" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+                }
+                <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+}
