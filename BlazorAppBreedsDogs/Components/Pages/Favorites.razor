@@ -1,5 +1,42 @@
 ﻿@page "/favorites"
 
-<div>
-    <h1>Favoritos</h1>
-</div>
+<MudItem Class="mb-4 mt-2">
+    <MudText Typo="Typo.h4">Raças de cães Favoritas</MudText>
+</MudItem>
+
+@if (loading)
+{
+    <MudItem>
+        <MudProgressLinear Color="Color.Info" Indeterminate="true" Class="my-7" />
+    </MudItem>
+}
+else
+{
+    @if (isVisible)
+    {
+        <MudContainer MaxWidth="MaxWidth.Large">
+            <MudItem Class="mb-4">
+                <MudAutocomplete T="string"
+                                 SearchFunc="@Search"
+                                 Value="@selectedBreedName"
+                                 ValueChanged="(string n) => onChangeBreedName(n)"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 MaxItems="null"
+                                 Placeholder="Selecione uma raça"
+                                 Clearable />
+            </MudItem>
+
+            <MudGrid Spacing="6" Justify="Justify.Center">
+                <BreedCard @ref="BreedCardRef" AllBreedsDogs="allBreedsDogs"></BreedCard>
+            </MudGrid>
+        </MudContainer>
+
+    }
+    else
+    {
+        <MudItem>
+            <MudText Typo="Typo.h4">Nenhum dado foi encontrado!</MudText>
+        </MudItem>
+    }
+}
