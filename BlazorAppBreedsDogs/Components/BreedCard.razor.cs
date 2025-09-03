@@ -3,11 +3,14 @@ using BlazorAppBreedsDogs.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Web;
+using System.Xml.Linq;
 using Color = MudBlazor.Color;
 
 
@@ -23,8 +26,11 @@ namespace BlazorAppBreedsDogs.Components
 
         [Inject]
         public BreedsDogsServices BreedsDogsServices { get; set; }
+        [Inject]
+        public NavigationManager navigationManager { get; set; }
 
         private FavoriteBreedsService favoriteBreedsService = new FavoriteBreedsService();
+        private string url { get; set; } = "http://api.whatsapp.com/send?phone=&text=";
 
         public bool isVisible { get; set; }
         public bool loading { get; set; }
@@ -34,7 +40,6 @@ namespace BlazorAppBreedsDogs.Components
         public BreedDog? breedDogFiltered { get; set; } = null;
 
         List<BreedDog> displayedBreedsDogs { get; set; } = new List<BreedDog>();
-
 
         protected override async Task OnInitializedAsync()
         {
@@ -110,5 +115,22 @@ namespace BlazorAppBreedsDogs.Components
 
         }
 
+        public void SendWhatsApp(string breedName, string origin, string bredFor, string temperament, string lifeSpan, string imgUrl)
+        {
+            string textFormatted = 
+                $"Olá! 😉 Aqui esta as informações do seu cãozinho! 🐶" +
+                $"\n\n*Nome da raça:* {breedName}" +
+                $"\n*Origen:* {origin}" +
+                $"\n*Criado para:* {bredFor}" +
+                $"\n*Temperamento:* {temperament}" +
+                $"\n*Estimativa de vida:* {lifeSpan}" +
+                $"\n\nClique no link para ver a foto do cão" +
+                $"\n🔗 {imgUrl} 🐕";
+
+            string linkWhatsApp = url + HttpUtility.UrlEncode(textFormatted);
+
+            navigationManager.NavigateTo(linkWhatsApp, true);
+
+        }
     }
 }

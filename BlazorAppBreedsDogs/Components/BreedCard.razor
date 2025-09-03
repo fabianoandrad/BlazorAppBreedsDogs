@@ -14,14 +14,14 @@
             <MudCardActions>
                 @if (favoritesIds.Contains(breedsDog.Id))
                 {
-                    <MudIconButton OnClick="() => onSaveFavorites(breedsDog.Id)" Icon="@Icons.Material.Filled.Favorite" Color="Color.Error" />
+                    <MudIconButton OnClick="() => onSaveFavorites(breedsDog.Id)" Icon="@Icons.Material.Filled.Favorite" Color="Color.Secondary" />
 
                 }
                 else
                 {
                     <MudIconButton OnClick="() => onSaveFavorites(breedsDog.Id)" Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
                 }
-                <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+                <MudIconButton Icon="@Icons.Custom.Brands.WhatsApp" Color="Color.Success" OnClick="() => SendWhatsApp(breedsDog.BreedName, breedsDog.Origin, breedsDog.BredFor, breedsDog.Temperament, breedsDog.LifeSpan, breedsDog.Image.Url)" />
             </MudCardActions>
         </MudCard>
     </MudItem>
