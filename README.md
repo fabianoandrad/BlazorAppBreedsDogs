@@ -22,3 +22,10 @@ Aplicativo híbrido desenvolvido com **.NET MAUI Blazor Hybrid**, com o objetivo
 1. Clone o repositório:
    ```bash
    https://github.com/fabianoandrad/BlazorAppBreedsDogs.git
+
+## Prints do App Breeds Dogs
+
+<div align="center">
+  <img width="200" height="3120" alt="Image" src="https://github.com/user-attachments/assets/51bd55d4-deba-4df5-b409-fbbf67a1c359" />
+ 
+</div>
