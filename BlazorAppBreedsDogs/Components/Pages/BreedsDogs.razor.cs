@@ -65,7 +65,7 @@ namespace BlazorAppBreedsDogs.Components.Pages
         private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
         {
             if (string.IsNullOrEmpty(value)) return breedsNames.Select(v => v.BreedName);
-            var selectedBreed = breedsNames.Where(v => v.BreedName.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+            var selectedBreed = breedsNames.Where(v => v.BreedName != null && v.BreedName.Contains(value, StringComparison.OrdinalIgnoreCase));
             return selectedBreed.Select(v => v.BreedName);
         }
     }

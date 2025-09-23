@@ -1,4 +1,5 @@
-﻿using MudBlazor;
+﻿using BlazorAppBreedsDogs.Models;
+using MudBlazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,13 @@ namespace BlazorAppBreedsDogs.Components.Layout
     public partial class MainLayout
     {
         //private MudTheme _theme = new();
-        private bool _isDarkMode { get; set; }
+        private bool _isDarkMode { get; set; } = true;
         private MudThemeProvider? _mudThemeProvider;
+        public ColorStyles ColorStyles { get; set; } = new ColorStyles();
+
+        //public string backgroundDark { get; set; } = "background-color: #393e43";
+        //public string backgroundLight { get; set; } = "background-color: #FFFFFF";
+
 
         // Customize theme colors if you want rather than defaults.
         // https://mudblazor.com/customization/overview#custom-themes        

@@ -15,17 +15,13 @@
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
         <MudDrawerHeader>
             <MudText Typo="Typo.h6">Raças de Cães</MudText>
-
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
 
     <MudMainContent>
-        <MudContainer Class="pt-1">
+        <MudContainer Class="pt-1" Style="@(_isDarkMode ? ColorStyles.backgroundDark : ColorStyles.backgroundLight)">
             @Body
         </MudContainer>
     </MudMainContent>
-
 </MudLayout>
-
-
