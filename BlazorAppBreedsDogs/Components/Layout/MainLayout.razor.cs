@@ -1,59 +1,45 @@
-﻿using BlazorAppBreedsDogs.Models;
+﻿using BlazorAppBreedsDogs.Services;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Colors = MudBlazor.Colors;
 
 namespace BlazorAppBreedsDogs.Components.Layout
 {
     public partial class MainLayout
     {
-        //private MudTheme _theme = new();
-        private bool _isDarkMode { get; set; } = true;
+        [Inject]
+        public StateContainer StateContainer { get; set; }
+        private bool _isDarkMode { get; set; } = false;
         private MudThemeProvider? _mudThemeProvider;
-        public ColorStyles ColorStyles { get; set; } = new ColorStyles();
-
-        //public string backgroundDark { get; set; } = "background-color: #393e43";
-        //public string backgroundLight { get; set; } = "background-color: #FFFFFF";
-
 
         // Customize theme colors if you want rather than defaults.
         // https://mudblazor.com/customization/overview#custom-themes        
 
         MudTheme _theme = new MudTheme()
         {
-            //PaletteLight = new PaletteLight()
-            //{
-            //    Primary = MudBlazor.Colors.Blue.Default,
-            //    Secondary = MudBlazor.Colors.Pink.Accent2,
-            //    Background = "#F5F5F5",
-            //    Surface = "#FFFFFF",
-            //    AppbarBackground = "#1976D2",
-            //    TextPrimary = "#212121",
-            //    DrawerBackground = "#EEEEEE"
-            //},
-            //PaletteDark = new PaletteDark()
-            //{
-            //    Primary = MudBlazor.Colors.Blue.Lighten1,
-            //    Secondary = MudBlazor.Colors.Pink.Lighten2,
-            //    Background = "#121212",
-            //    Surface = "#1E1E1E",
-            //    AppbarBackground = "#1C1C1C", // Menu superior
-            //    TextPrimary = "#CCCCCC",
-            //    DrawerBackground = "#1C1C1C", // Menu lateral
-            //    //LinesInputs = "#e307eb"
-            //    //InputBackground = "#2A2A2A",
-            //    //InputText = "#FFFFFF",
-            //    //InputPlaceholder = "rgba(255,255,255,0.5)"
-            //}
-
-            //LayoutProperties = new LayoutProperties()
-            //{
-            //    DrawerWidthLeft = "260px",
-            //    DrawerWidthRight = "300px"
-            //}
+            PaletteLight = new PaletteLight()
+            {
+                Primary = Colors.Blue.Lighten2,
+                PrimaryContrastText = Colors.Orange.Accent3,
+                Background = Colors.Shades.White,
+                TextPrimary = Colors.Gray.Darken3,
+                AppbarBackground = Colors.Blue.Lighten2,
+                AppbarText = Colors.Gray.Darken2,
+                DrawerText = Colors.Gray.Darken3,
+                DrawerBackground = Colors.Shades.White,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten2,
+                PrimaryContrastText = Colors.LightGreen.Accent4,
+                Background = Colors.Gray.Darken3,
+                AppbarText = Colors.Gray.Darken1
+            },
+            LayoutProperties = new LayoutProperties()
+            {
+                DrawerWidthLeft = "260px",
+                DrawerWidthRight = "300px"
+            }
         };
 
         bool _drawerOpen = true;
@@ -75,7 +61,7 @@ namespace BlazorAppBreedsDogs.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-
+            StateContainer.IsDarkMode = _isDarkMode;
         }
 
         public string DarkLightModeButtonIcon => _isDarkMode switch
@@ -87,6 +73,7 @@ namespace BlazorAppBreedsDogs.Components.Layout
         private async Task DarkModeToggle()
         {
             _isDarkMode = !_isDarkMode;
+            StateContainer.IsDarkMode = _isDarkMode;
         }
     }
 }

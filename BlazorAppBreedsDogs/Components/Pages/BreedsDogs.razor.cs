@@ -10,15 +10,17 @@ namespace BlazorAppBreedsDogs.Components.Pages
 {
     public partial class BreedsDogs : ComponentBase
     {
-        private BreedCard BreedCardRef;
 
         [Inject]
         public BreedsDogsServices BreedsDogsServices { get; set; }
+        [Inject]
+        public StateContainer StateContainer { get; set; }
 
         public bool isVisible { get; set; } = true;
         public bool loading { get; set; }
         public string? selectedBreedName { get; set; }
 
+        private BreedCard BreedCardRef;
         private int selectedBreedId { get; set; }
 
         List<BreedDog> allBreedsDogs { get; set; } = new List<BreedDog>();
@@ -27,6 +29,7 @@ namespace BlazorAppBreedsDogs.Components.Pages
       
         protected override async Task OnInitializedAsync()
         {
+            var teste = StateContainer.IsDarkMode;
             loading = true;
             allBreedsDogs = await BreedsDogsServices.GetAllBreeedsDogs();
             if (allBreedsDogs != null && allBreedsDogs.Count() != 0)
@@ -41,6 +44,12 @@ namespace BlazorAppBreedsDogs.Components.Pages
             {
                 isVisible = false;
             }
+
+
+
+
+
+             
 
             loading = false;
         }

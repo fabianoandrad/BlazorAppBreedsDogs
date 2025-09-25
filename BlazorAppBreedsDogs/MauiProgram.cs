@@ -23,7 +23,7 @@ namespace BlazorAppBreedsDogs
                   client.BaseAddress = new Uri("https://breeds-dogs-api-node.onrender.com/");
                   client.DefaultRequestHeaders.Add("x-api-key", apiKey);
               });
-
+            builder.Services.AddSingleton<StateContainer>();
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddMudServices();
 
